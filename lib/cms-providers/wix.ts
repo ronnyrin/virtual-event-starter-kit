@@ -72,11 +72,11 @@ export async function getAllStages(): Promise<Stage[]> {
       title: talk.title,
       start: talk.start['$date'],
       end: talk.end['$date'],
-      speaker: [{
-        name: talk.speaker[0].name,
-        slug: talk.speaker[0].slug,
-        image: { url: `https://static.wixstatic.com/media/${talk.speaker[0].image.split('v1/')[1].split('/')[0]}` }
-      }]
+      speaker: talk.speaker.map((speaker: any) => ({
+        name: speaker.name,
+        slug: speaker.slug,
+        image: { url: `https://static.wixstatic.com/media/${speaker.image.split('v1/')[1].split('/')[0]}` }
+      }))
     };
 
     if (stages[talk.Stage[0].slug]) {
