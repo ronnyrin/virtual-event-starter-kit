@@ -17,18 +17,22 @@ import { Job, Sponsor, Stage, Speaker } from '@lib/types';
 
 const API_URL = 'https://www.wix.com/_api/cloud-data/v1/wix-data/collections/query';
 
+let accessToken = '';
+
 async function fetchCmsAPI(query: string, include?: any) {
-  const resToken = await fetch(
-    `https://www.wixgateway.com/v1/meta-site/session-token`,
-    {
-      method: 'POST',
-      headers: {
-        'origin': process.env.WIX_API_URL!,
-        'Content-Type': 'application/json'
-      }
-    });
-  const jsonToken = await resToken.json();
-  const accessToken = jsonToken.accessToken;
+  if (!accessToken) {
+    const resToken = await fetch(
+      `https://www.wixgateway.com/v1/meta-site/session-token`,
+      {
+        method: 'POST',
+        headers: {
+          'origin': process.env.WIX_API_URL!,
+          'Content-Type': 'application/json'
+        }
+      });
+    const jsonToken = await resToken.json();
+    accessToken = jsonToken.accessToken;
+  }
 
   const res = await fetch(API_URL, {
     method: 'POST',
