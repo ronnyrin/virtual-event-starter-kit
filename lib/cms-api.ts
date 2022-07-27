@@ -21,6 +21,7 @@ import * as datoCmsApi from './cms-providers/dato';
 import * as contentfulApi from './cms-providers/contentful';
 import * as prismicApi from './cms-providers/prismic';
 import * as storyblokApi from './cms-providers/storyblok';
+import * as wixApi from './cms-providers/wix';
 
 let cmsApi: {
   getAllSpeakers: () => Promise<Speaker[]>;
@@ -45,7 +46,9 @@ if (process.env.DATOCMS_READ_ONLY_API_TOKEN) {
   cmsApi = agilityApi;
 } else if (process.env.STRAPI_API_URL) {
   cmsApi = strapiApi;
-} else {
+} else if (process.env.WIX_API_URL) {
+  cmsApi = wixApi;
+}else {
   cmsApi = {
     getAllSpeakers: () => Promise.resolve([]),
     getAllStages: () => Promise.resolve([]),

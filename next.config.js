@@ -18,6 +18,7 @@ module.exports = {
   images: {
     domains: [
       'www.datocms-assets.com',
+      'static.wixstatic.com',
       'a.storyblok.com',
       'images.ctfassets.net',
       'images.prismic.io',
