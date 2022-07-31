@@ -68,14 +68,14 @@ export async function getAllSpeakers(): Promise<Speaker[]> {
 }
 
 export async function getAllStages(): Promise<Stage[]> {
-  const talks = await fetchCmsAPI('Talk', ['speaker', 'Stage']);
+  const talks = await fetchCmsAPI('Talk', ['speaker', 'Stage', 'event']);
   const stages: any[] = [];
 
   for (const talk of talks.items) {
     const schedule = {
-      title: talk.title,
-      start: talk.start['$date'],
-      end: talk.end['$date'],
+      title: talk.event.name,
+      start: talk.event.start['$date'],
+      end: talk.event.end['$date'],
       speaker: talk.speaker.map((speaker: any) => ({
         name: speaker.name,
         slug: speaker.slug,
